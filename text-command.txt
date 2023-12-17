@@ -1,0 +1,139 @@
+
+https://github.com/SornDevT/minipos13.git
+Laravel
+
+    - php artisan serve         : ເປັນຄຳສັ່ງ Run Project
+    - php artisan key:generate  : ເປັນຄຳສັ່ງສ້າງ Key App
+    - composer install          : ຄຳສັ່ງຕິດຕັ້ງ Ribrary ຂອງ Laravel
+
+VueJS
+
+    - npm install               : ເປັນຄຳສັ່ງຕິດຕັ້ງ Packet ຂອງ VueJS
+    - npm run dev               : ເປັນຄຳສັ່ງ compil VueJS
+    -npm i vue-router@next
+
+Git
+
+    - git init                  : ຄຳສັ່ງນຳໃຊ້ Git ໃນໂຟນເດີ້ໂປຼເຈັກ
+    - git add .                 : ຄຳສັ່ງ add file ເຂົ້າໃນ git
+    - git commit -m "ຄຳອະທິບາຍ"  : ຄຳສັ່ງ commit 
+    - git push                  : ຄຳສັ່ງ ອັບໂຫລດໂປຼເຈັກ ຂື້ນ github
+    - git pull                  : ຄຳສັ່ງ ອັບເດດ ຊ໋ອດໂຄດລ່າສຸດຈາກ github
+
+    - git add . && git commit -m "ຂໍ້ຄວາມ" && git push
+    ຕິດຕັ້ງ JWT ສຳລັບ Laravel
+    - composer require php-open-source-saver/jwt-auth
+    - php artisan vendor:publish --provider="PHPOpenSourceSaver\JWTAuth\Providers\LaravelServiceProvider"
+    - php artisan jwt:secret
+    theme free website themeselection
+
+    All Tables 
+
+1. Table: User
+    Fill            Fill Type 
+    - name          string
+    - email         string 
+    - password      string 
+
+2. Table: Store 
+    Fill            Fill Type 
+    - name          string 
+    - image         string 
+    - amount        integer
+    - price_buy     integer 
+    - price_sell    integer 
+
+3. Table: Transection
+    Fill            Fill Type 
+    - tran_id       string 
+    - tran_type     string 
+    - product_id    integer 
+    - amount        integer 
+    - price         integer
+    - tran_detail   string 
+
+4. Table: Bill 
+    Fill            Fill Type 
+    - bill_id       string 
+    - customer_name string
+    - customer_tel  string 
+
+5. Table: Bill_list 
+    Fill            Fill Type 
+    - bill_id       string 
+    - name          string
+    - amount        integer
+    - price         integer 
+
+List Controller 
+    - BillController        ຈັດການຂໍ້ມູນກ່ຽວກັບໃບບິນ
+    - StoreController       ຈັດການຂໍ້ມູນສີນຄ້າໃນ ສະຕ໋ອກ
+    - TransectionController ຈັດການຂໍ້ມູນ ທຸລະກຳທີ່ເກີດຂື້ນ
+    - UserController        ຈັດການຂໍ້ມູນຂອງຜູ້ໃຊ້ 
+    - ReportController      ຈັດການລະບົບລາຍງານ
+
+
+
+    sub menu
+    <li class="menu-item " :class="mainmenu1">
+      <router-link to="/report" class="menu-link menu-toggle" @click="mainmenu1?mainmenu1='':mainmenu1='open'" >
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div>Dashboards</div>
+                  <div class="badge bg-danger rounded-pill ms-auto">5</div>
+              </router-link>
+      
+            <ul class="menu-sub">
+    
+      <li class="menu-item active">
+        <a href="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template-free/demo" class="menu-link">
+                    <div>Analytics</div>
+                  </a>
+
+        
+              </li>
+    
+    
+    
+      <li class="menu-item ">
+        <a href="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/dashboard/crm" class="menu-link" target="_blank">
+                    <div>CRM</div>
+                      <div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</div>
+                  </a>
+
+        
+              </li>
+    
+    
+    
+      <li class="menu-item ">
+        <a href="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/app/ecommerce/dashboard" class="menu-link" target="_blank">
+                    <div>eCommerce</div>
+                      <div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</div>
+                  </a>
+
+        
+              </li>
+    
+    
+    
+      <li class="menu-item ">
+        <a href="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/app/logistics/dashboard" class="menu-link" target="_blank">
+                    <div>Logistics</div>
+                      <div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</div>
+                  </a>
+
+        
+              </li>
+    
+    
+    
+      <li class="menu-item ">
+        <a href="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/app/academy/dashboard" class="menu-link" target="_blank">
+                    <div>Academy</div>
+                      <div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</div>
+                  </a>
+
+        
+              </li>
+      </ul>
+          </li>
