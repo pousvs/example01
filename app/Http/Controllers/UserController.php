@@ -62,7 +62,18 @@ class UserController extends Controller
             ]);
         }
     }
-  
+    public function logout(){
+            
+        $token = JWTAuth::getToken();
+        $invalidate = JWTAuth::invalidate($token);
+
+        if($invalidate){
+            return response()->json([
+                'success' => true,
+                'message' => 'ສຳເລັດ!'
+            ]);
+        }
+    }
 
 
 

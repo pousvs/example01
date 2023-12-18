@@ -94,9 +94,9 @@
                 <div class="dropdown-divider"></div>
               </li>
               <li>
-                <a class="dropdown-item" href="javascript:void(0);">
+                <a class="dropdown-item" href="javascript:void(0);" @click="Logout()">
                   <i class='bx bx-power-off me-2'></i>
-                  <span class="align-middle">Log Out</span>
+                  <span class="align-middle">ອອກຈາກລະບົບ</span>
                 </a>
               </li>
             </ul>
@@ -164,6 +164,7 @@
 
 <script>
 import { useStore } from './store/auth';
+import axios from 'axios';
 
 export default {
     name: 'WorkspaceJsonApp',
@@ -183,7 +184,20 @@ export default {
     },
 
     methods: {
-        
+        Logout(){
+        axios.get('api/logout',{ headers:{ Authorization: 'Bearer '+ this.store.get_token}}).then((res)=>{
+          if(res.data.success){
+            // ເຄຼີຍຂໍ້ມູນເກົ່າອອກ
+            localStorage.removeItem('web_token')
+            localStorage.removeItem('web_user')
+            this.store.remove_token()
+            this.store.remove_user()
+            this.$router.push('/login')
+          }
+        }).catch((error)=>{
+          console.log(error);
+        })
+      }
     },
 };
 </script>

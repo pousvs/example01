@@ -88,7 +88,36 @@ export default {
     mounted() {
         
     },
+computed:{
+      check_bt(){
+          var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+          // ກວດ ອີເມວລ໌
+          if(this.email){ 
+            if(!emailRegex.test(this.email)){
+              this.check_email = 'ອີເມວລ໌ບໍ່ຖຶກຕ້ອງ!'
+            } else {
+              this.check_email = ''
+            }
+          }
+
+          // ກວດລະຫັດຜ່ານ
+          if(this.password){
+            if(this.password.length < 6){
+              this.check_pass = 'ລະຫັດຜ່ານຕ້ອງຫຼາຍກ່ວາ 6 ຕົວອັກສອນ!'
+            }else{
+              this.check_pass = ''
+            }
+          }
+
+          // ທຳການປິດປຸ່ມ ຖ້າຂໍ້ມູນບໍ່ຖຶກຕ້ອງ
+          if(!emailRegex.test(this.email) || this.password.length < 6){
+            return true;
+          } else {
+            return false;
+          }
+      }
+    },
 
     methods: {
         Login(){
