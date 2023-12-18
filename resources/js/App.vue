@@ -9,7 +9,7 @@
   <div class="layout-wrapper layout-content-navbar ">
   <div class="layout-container">
 
-          <menusildebar />
+          <menusildebar v-if="store.get_token" />
     
 
     <!-- Layout page -->
@@ -124,7 +124,7 @@
 
           <!-- Footer -->
                     <!-- Footer-->
-<footer class="content-footer footer bg-footer-theme">
+<footer class="content-footer footer bg-footer-theme" v-if="store.get_token" >
   <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
     <div class="mb-2 mb-md-0">
       ©
@@ -163,8 +163,14 @@
 </template>
 
 <script>
+import { useStore } from './store/auth';
+
 export default {
     name: 'WorkspaceJsonApp',
+     setup(){
+      const store = useStore();
+      return { store }
+    },
 
     data() {
         return {
