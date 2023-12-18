@@ -26,6 +26,10 @@ Git
     - php artisan vendor:publish --provider="PHPOpenSourceSaver\JWTAuth\Providers\LaravelServiceProvider"
     - php artisan jwt:secret
     theme free website themeselection
+    ຕິດຕັ້ງ sweetalert2
+    - npm i vue-sweetalert2
+    ຕິດຕັ້ງ vue-cleave-component
+    - npm i vue-cleave-component
 
     All Tables 
 
