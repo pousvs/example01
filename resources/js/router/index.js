@@ -3,7 +3,7 @@ import { createWebHistory, createRouter } from "vue-router";
 import login from "../pages/login.vue";
 import register from '../pages/register.vue';
 import report from '../pages/report.vue';
-import trandsection from '../pages/trandsection.vue';
+import transection from '../pages/transection.vue';
 import pos from '../pages/pos.vue';
 import store from '../pages/store.vue';
 import nopage from '../pages/nopage.vue';
@@ -53,9 +53,9 @@ export const routes = [
         }
     },
     {
-        name: 'trandsection',
-        path: '/trandsection',
-        component: trandsection,
+        name: 'transection',
+        path: '/transection',
+        component: transection,
         meta: {
             middleware: [authMiddleware]
         }

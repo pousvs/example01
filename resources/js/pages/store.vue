@@ -96,7 +96,7 @@
         </tbody>
       </table>
       <Pagination :pagination="StoreData" :offset="4" @paginate="GetStore($event)" />
-      <!-- <button @click="showAlert">Hello world</button> -->
+      <button @click="showAlert">Hello world</button>
     </div>
   </div>
 </div>
@@ -107,7 +107,7 @@ import axios from 'axios';
 import { useStore } from '../store/auth';
 import Cleave from 'vue-cleave-component';
 export default {
-    name: 'WorkspaceJsonStore',
+    name: 'Minipos13Store',
     setup(){
       const store = useStore();
       return { store }
@@ -217,6 +217,8 @@ export default {
             this.FormStore.price_buy = ''
             this.FormStore.price_sell = ''
 
+            this.image_pre = this.url + '/assets/img/file2.png'
+
             this.ShowForm = true
             this.FormType = true
         },
@@ -240,7 +242,16 @@ export default {
               }
 
             }).catch((error)=>{
-              console.log(error)
+              console.log(error);
+              if(error){
+                            if(error.response.status == 401){
+                                this.store.remove_token();
+                                this.store.remove_user();
+                                localStorage.removeItem("web_token");
+                                localStorage.removeItem("web_user");
+                                this.$router.push("/login");
+                            }
+                        }
             })
 
         },
@@ -281,7 +292,16 @@ export default {
                           }
 
                         }).catch((error)=>{
-                          console.log(error)
+                          console.log(error);
+                          if(error){
+                            if(error.response.status == 401){
+                                this.store.remove_token();
+                                this.store.remove_user();
+                                localStorage.removeItem("web_token");
+                                localStorage.removeItem("web_user");
+                                this.$router.push("/login");
+                            }
+                        }
                         })
 
                         
@@ -324,6 +344,15 @@ export default {
 
                     }).catch((error)=>{
                         console.log(error);
+                        if(error){
+                            if(error.response.status == 401){
+                                this.store.remove_token();
+                                this.store.remove_user();
+                                localStorage.removeItem("web_token");
+                                localStorage.removeItem("web_user");
+                                this.$router.push("/login");
+                            }
+                        }
                     })
 
                 } else {
@@ -359,6 +388,15 @@ export default {
 
                         }).catch((error)=>{
                         console.log(error);
+                        if(error){
+                            if(error.response.status == 401){
+                                this.store.remove_token();
+                                this.store.remove_user();
+                                localStorage.removeItem("web_token");
+                                localStorage.removeItem("web_user");
+                                this.$router.push("/login");
+                            }
+                        }
                         })
 
                 }
@@ -371,6 +409,15 @@ export default {
 
             }}).catch((error)=>{
               console.log(error)
+              if(error){
+                            if(error.response.status == 401){
+                                this.store.remove_token();
+                                this.store.remove_user();
+                                localStorage.removeItem("web_token");
+                                localStorage.removeItem("web_user");
+                                this.$router.push("/login");
+                            }
+                        }
             })
         }
     },

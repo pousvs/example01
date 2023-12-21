@@ -30,6 +30,8 @@ Git
     - npm i vue-sweetalert2
     ຕິດຕັ້ງ vue-cleave-component
     - npm i vue-cleave-component
+    clear router
+    - php artisan route:cache  
 
     All Tables 
 

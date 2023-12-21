@@ -31,9 +31,9 @@
             <div class="card" style=" overflow: auto; height: 79vh;">
                 <div class="card-body">
                     <label for="">ຊື່ສິນຄ້າ:</label>
-                    <input type="text" class=" form-control mb-2" placeholder="...">
+                    <input type="text" class=" form-control mb-2" v-model="customer_name" placeholder="...">
                     <label for="">ເບີໂທ:</label>
-                    <input type="text" class=" form-control" placeholder="...">
+                    <input type="text" class=" form-control" v-model="customer_tel" placeholder="...">
                     <hr>
                     <div class=" d-flex justify-content-between fs-4 text-info fw-bold">
                         <span>ລວມຍອດເງິນ:</span>
@@ -136,7 +136,7 @@
                 </div>
                 <div class="modal-footer">
                   
-                  <button type="button" class="btn btn-primary">ຍືນຍັນຊຳລ່ະເງິນ</button>
+                  <button type="button" class="btn btn-primary" @click="ConfirmPay()" :disabled="!(CashAmount>=TotalAmount)">ຍືນຍັນຊຳລ່ະເງິນ</button>
                   <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">ປິດ</button>
                 </div>
               </div>
@@ -150,7 +150,7 @@ import { useStore } from '../store/auth';
 
 export default {
     name: 'WorkspaceJsonPos',
-setup(){
+    setup(){
       const store = useStore();
       return { store }
     },
@@ -162,7 +162,9 @@ setup(){
         Search:'',
         StoreData:[],
         ListOrder:[],
-        CashAmount:''
+        CashAmount:'',
+        customer_name:'',
+        customer_tel:''
         };
     },
 
@@ -186,6 +188,69 @@ setup(){
         },
         Pay(){
             $("#dialog_pay").modal("show");
+        },
+        async openLink(link){
+            const response = await fetch(`${link}`,{ headers:{ Authorization: 'Bearer '+ this.store.get_token}});
+            const html = await response.text();
+            const blob = new Blob([html],{ type: "text/html"});
+            const blobUrl = URL.createObjectURL(blob);
+            window.open(blobUrl, "_blank");
+        },
+        ConfirmPay(){
+
+                axios.post('api/transection/add',{
+                    customer_name: this.customer_name,
+                    customer_tel: this.customer_tel,
+                    listorder: this.ListOrder,
+                    acc_type: 'income'
+                },{ headers:{ Authorization: 'Bearer '+ this.store.get_token}}).then((res)=>{
+
+                    if(res.data.success){
+
+                        /// ເຄີຼຍຂໍ້ມູນ
+                        this.customer_name = ''
+                        this.customer_tel = ''
+                        this.ListOrder = []
+                        this.CashAmount = ''
+                        $("#dialog_pay").modal("hide")
+                        // ແບບເກົ່າ
+                        // window.open(window.location.origin+'/api/bills/print/'+res.data.bill_id, "_blank");
+
+                        // ແບບໃໝ່
+                        this.openLink(window.location.origin+'/api/bills/print/'+res.data.bill_id)
+
+                        this.GetStore()
+
+                        this.$swal({
+                            position: 'top-end',
+                            toast: true,
+                              title: res.data.message,
+                              icon: "success",
+                              showConfirmButton: false,
+                              timer: 2500
+                            });
+
+                    } else {
+                        this.$swal({
+                            title: res.data.message,
+                            icon: "error",
+                            showConfirmButton: false,
+                            timer: 3500
+                          });
+                    }
+
+                }).catch((error)=>{
+                    console.log(error)
+                    if(error){
+                        if(error.response.status == 401){
+                            this.store.remove_token();
+                            this.store.remove_user();
+                            localStorage.removeItem("web_token");
+                            localStorage.removeItem("web_user");
+                            this.$router.push("/login");
+                        }
+                    }
+                })
         },
         AddProduct(id){
             let item = this.StoreData.data.find((i)=>i.id == id);
@@ -258,7 +323,16 @@ setup(){
             this.StoreData = res.data
 
             }}).catch((error)=>{
-            console.log(error)
+                console.log(error)
+                if(error){
+                    if(error.response.status == 401){
+                        this.store.remove_token();
+                        this.store.remove_user();
+                        localStorage.removeItem("web_token");
+                        localStorage.removeItem("web_user");
+                        this.$router.push("/login");
+                    }
+                }
             })
             }
     },
