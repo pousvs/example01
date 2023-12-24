@@ -21,27 +21,30 @@ use App\Http\Controllers\BillController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-    Route::post('register',[UserController::class,'register']);
-    Route::post('login',[UserController::class,'login']);
-    Route::get('logout',[UserController::class,'logout']);
+Route::post('register', [UserController::class, 'register']);
+Route::post('login', [UserController::class, 'login']);
+Route::get('logout', [UserController::class, 'logout']);
 
 
-    Route::controller(StoreController::class)->group(function (){
-        Route::get('store','index');
-        Route::get('store/edit/{id}','edit');
-        Route::post('store/add','add');
-        Route::post('store/update/{id}','update');
-        Route::delete('store/delete/{id}','delete');
-    });
-    Route::controller(TransectionController::class)->group(function (){
-        // Route::get('transection','index');
-        // Route::get('transection/edit/{id}','edit');
-        Route::post('transection/add','add');
-        // Route::post('transection/update/{id}','update');
-        // Route::delete('transection/delete/{id}','delete');
-    });
-    
-    Route::controller(BillController::class)->group(function (){
-        Route::get('bills/print/{id}','print_bill');
-    });
+Route::controller(StoreController::class)->group(function () {
+    Route::get('store', 'index');
+    Route::get('store/edit/{id}', 'edit');
+    Route::post('store/add', 'add');
+    Route::post('store/update/{id}', 'update');
+    Route::delete('store/delete/{id}', 'delete');
+});
+Route::controller(TransectionController::class)->group(function () {
+    Route::post('transection', 'index');
+    // Route::get('transection/edit/{id}','edit');
+    Route::post('transection/add', 'add');
+    // Route::post('transection/update/{id}','update');
+    // Route::delete('transection/delete/{id}','delete');
+});
 
+Route::controller(BillController::class)->group(function () {
+    Route::get('bills/print/{id}', 'print_bill');
+});
+
+Route::controller(ReportController::class)->group(function (){
+    Route::post('report','created_report');
+});

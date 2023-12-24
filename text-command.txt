@@ -32,6 +32,10 @@ Git
     - npm i vue-cleave-component
     clear router
     - php artisan route:cache  
+    ຕິດຕັ້ງ Packet ສຳລັບສະແດງວັນທີ່
+    - npm install vue-moment
+    ຕິດຕັ້ງ Packet ສະແດງ Graphic
+    - npm i vue-chart-3 
 
     All Tables 
 
