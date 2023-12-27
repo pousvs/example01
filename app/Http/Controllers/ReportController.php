@@ -18,8 +18,8 @@ class ReportController extends Controller
         $month_type = $request->month_type;
         $dmy = $request->dmy;
 
-        $m = explode("-",$dmy)[1];
-        $y = explode("-",$dmy)[0];
+        $month = explode("-",$dmy)[1];
+        $year = explode("-",$dmy)[0];
 
         $labels = [];
         $income = [];
@@ -35,13 +35,87 @@ class ReportController extends Controller
                 array_push($labels,"ວັນທີ່ ".$i);
             }
 
-            return $labels;
+            // ດຶງຂໍ້ມູນລາຍຮັບ ແຕ່ລ່ະວັນທີ່ ແລ້ວເພີ່ມເຂົ້າໃນ $income
+            for ($i=1; $i <=$last_day ; $i++) { 
+                $inc = Transection::whereMonth("created_at",$month)
+                ->whereYear("created_at",$year)
+                ->whereDay("created_at",$i)
+                ->where("tran_type","income")
+                ->sum("price");
+                // ເພີ່ມເຂົ້າ $income
+                array_push($income,$inc);
+            }
+
+            $sum_income = Transection::whereMonth("created_at",$month)
+            ->whereYear("created_at",$year)
+            ->where("tran_type","income")
+            ->sum("price");
+
+            // ດຶງຂໍ້ມູນລາຍຈ່າຍ ແຕ່ລ່ະວັນທີ່ ແລ້ວເພີ່ມເຂົ້າໃນ $expense
+            for ($i=1; $i <=$last_day ; $i++) { 
+                $exp = Transection::whereMonth("created_at",$month)
+                ->whereYear("created_at",$year)
+                ->whereDay("created_at",$i)
+                ->where("tran_type","expense")
+                ->sum("price");
+                // ເພີ່ມເຂົ້າ $income
+                array_push($expense,$exp);
+            }
+
+            $sum_expense = Transection::whereMonth("created_at",$month)
+            ->whereYear("created_at",$year)
+            ->where("tran_type","expense")
+            ->sum("price");
      
 
         } else if($month_type == 'y'){
             
+
+    
+  
+              for ($i=1; $i <=12 ; $i++) { 
+                  array_push($labels,"ເດືອນ ".$i);
+              }
+  
+              // ດຶງຂໍ້ມູນລາຍຮັບ ແຕ່ລ່ະວັນທີ່ ແລ້ວເພີ່ມເຂົ້າໃນ $income
+              for ($i=1; $i <=12 ; $i++) { 
+                  $inc = Transection::whereMonth("created_at",$i)
+                  ->whereYear("created_at",$year)
+                  ->where("tran_type","income")
+                  ->sum("price");
+                  // ເພີ່ມເຂົ້າ $income
+                  array_push($income,$inc);
+              }
+  
+              $sum_income = Transection::whereYear("created_at",$year)
+              ->where("tran_type","income")
+              ->sum("price");
+  
+              // ດຶງຂໍ້ມູນລາຍຈ່າຍ ແຕ່ລ່ະວັນທີ່ ແລ້ວເພີ່ມເຂົ້າໃນ $expense
+              for ($i=1; $i <=12 ; $i++) { 
+                  $exp = Transection::whereMonth("created_at",$i)
+                  ->whereYear("created_at",$year)
+                  ->where("tran_type","expense")
+                  ->sum("price");
+                  // ເພີ່ມເຂົ້າ $income
+                  array_push($expense,$exp);
+              }
+  
+              $sum_expense = Transection::whereYear("created_at",$year)
+              ->where("tran_type","expense")
+              ->sum("price");
         }
 
-        return array_reverse($tran);
+
+
+        $response = [
+            "labels" => $labels,
+            "income" => $income,
+            "expense" => $expense,
+            "sum_income" => $sum_income,
+            "sum_expense" => $sum_expense,
+        ];
+        
+        return response()->json($response);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\TransectionController;
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------

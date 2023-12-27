@@ -37,6 +37,13 @@ Git
     ຕິດຕັ້ງ Packet ສະແດງ Graphic
     - npm i vue-chart-3 
 
+
+    - php artisan route:cache : ເປັນການເຄຼຍ Route Cache ເຮັດໃຫ້ການໂຫຼດ Route ໄວຂື້ນ.
+    - php artisan view:cache : ເຮັດໃຫ້ ໂຫລດໜ້າ View ໄວຂື້ນ.
+    - composer install --optimize-autoloader --no-dev : ເປັນຄຳສັ່ງເພື່ອ ຕິດຕັ້ງ Autoloader Optimization ເຮັດໃຫ້ໂປຼເຈັກໄວຂື້ນ. 
+    - npm run build: ເປັນຄຳສັ່ງເພື່ອ ກຽມອັບໂຫຼດ ຂື້ນ Server 
+
+
     All Tables 
 
 1. Table: User

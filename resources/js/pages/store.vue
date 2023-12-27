@@ -76,7 +76,7 @@
             <td> 
               
               <img :src="url + '/assets/img/'+list.image" v-if="list.image" style=" width: 100%;" class=" rounded" alt="">
-              <img :src="url + '/assets/img/file2.png'" v-else style=" width: 100%;" class=" rounded" alt="">
+              <img :src="url + '/assets/img/image_pre.png'" v-else style=" width: 100%;" class=" rounded" alt="">
             </td>
             <td>
                 {{ list.name }}
@@ -96,7 +96,7 @@
         </tbody>
       </table>
       <Pagination :pagination="StoreData" :offset="4" @paginate="GetStore($event)" />
-      <button @click="showAlert">Hello world</button>
+      <!-- <button @click="showAlert">Hello world</button> -->
     </div>
   </div>
 </div>
@@ -115,7 +115,7 @@ export default {
     data() {
         return {
         url: window.location.origin,
-        image_pre: window.location.origin + '/assets/img/file2.png',
+        image_pre: window.location.origin + '/assets/img/image_pre.png',
         ShowForm:false,
         FormType:true,
         Sort:'asc',
@@ -173,7 +173,7 @@ export default {
       },
       RemoveImage(){
         this.FormStore.image = ''
-        this.image_pre = window.location.origin + '/assets/img/file2.png'
+        this.image_pre = window.location.origin + '/assets/img/image_pre.png'
       },
       formatPrice(value) {
             let val = (value / 1).toFixed(0).replace(",", ".");
@@ -217,7 +217,7 @@ export default {
             this.FormStore.price_buy = ''
             this.FormStore.price_sell = ''
 
-            this.image_pre = this.url + '/assets/img/file2.png'
+            this.image_pre = this.url + '/assets/img/image_pre.png'
 
             this.ShowForm = true
             this.FormType = true
@@ -238,7 +238,7 @@ export default {
               if(res.data.image){
                 this.image_pre = this.url + '/assets/img/' + res.data.image
               } else {
-                this.image_pre = this.url + '/assets/img/file2.png'
+                this.image_pre = this.url + '/assets/img/image_pre.png'
               }
 
             }).catch((error)=>{
